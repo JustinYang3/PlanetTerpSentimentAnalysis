@@ -3,12 +3,12 @@ from planetterp import professor
 import csv
 
 
-df = pd.read_csv("all_professors_temp.csv", usecols=["Professor"])
+df = pd.read_csv("review_csv_files/all_professors_temp.csv", usecols=["Professor"])
 row = 1
 prof_count = 1
-field_names = ['id', 'Professor', 'Course', 'Average Rating', 'Review']
+field_names = ['id', 'Professor', 'Course', 'Average Rating', 'Review', 'Rating']
     
-with open("all_professors_clean.csv", "a", newline='') as csv_file:
+with open("review_csv_files/all_professors_clean.csv", "a", newline='') as csv_file:
     for professor_line in df.index:
         
         temp_professor = professor(df['Professor'][professor_line], True)
@@ -20,7 +20,8 @@ with open("all_professors_clean.csv", "a", newline='') as csv_file:
                 writer.writeheader()
                 
             writer.writerow({'id': str(row), 'Professor': str(temp_professor['name']), 'Course': str(review['course']),
-                            'Average Rating': str(temp_professor['average_rating']), 'Review': str(review['review'])})
+                            'Average Rating': str(temp_professor['average_rating']), 'Review': str(review['review']), 
+                            'Rating': str(review('rating'))})
             print("Row added")
             row += 1
         print("Professor #" + str(prof_count) + " added")
